@@ -13,12 +13,15 @@ struct ContentView: View {
     @State private var isShowingScanner = false
     var body: some View {
         VStack {
-            List {
-                HStack {
-                    TextField("Enter Asset Tag", text: $assetTag)
-                        .frame(height: 50)
-                }
+            HStack {
+                TextField("Enter Asset Tag", text: $assetTag)
+                    .frame(height: 50)
             }
+            .padding()
+            .frame(maxWidth: .infinity)
+            .background(.listBackground)
+            .cornerRadius(12)
+            .foregroundColor(.textPrimary)
             Button(action: {
                 isShowingScanner = true
             }) {
@@ -27,7 +30,19 @@ struct ContentView: View {
             .sheet(isPresented: $isShowingScanner) {
                 CodeScannerView(codeTypes: [.qr], simulatedData: "CPH10718", completion: handleScan)
             }
+            .padding()
+            .frame(maxWidth: .infinity)
+            .background(.buttonPrimary)
+            .cornerRadius(12)
+            .foregroundColor(.textPrimary)
+            Spacer()
+            
+            List {
+                
+            }
         }
+        .padding()
+        .background(.nightBlue)
     }
     
     func handleScan(result: Result<ScanResult, ScanError>) {
